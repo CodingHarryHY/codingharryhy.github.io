@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SF Crime: Two Decades of Data</title>
+    <style>
+        /* Magazine style layout with dark theme */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Center content and restrict width for readability */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #16c79a;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #16c79a;
+            margin-top: 40px;
+            border-bottom: 2px solid #16213e;
+            padding-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        /* Figure styling */
+        figure {
+            margin: 40px 0;
+            padding: 20px;
+            background-color: #16213e;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive images and iframes */
+        img, iframe {
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+        }
+
+        iframe {
+            height: 500px;
+        }
+
+        figcaption {
+            margin-top: 15px;
+            font-size: 0.95em;
+            color: #a0a0b0;
+            font-style: italic;
+            border-left: 3px solid #16c79a;
+            padding-left: 10px;
+        }
+
+        .author-note {
+            text-align: center;
+            font-size: 0.9em;
+            color: #888;
+            margin-bottom: 40px;
+        }
+
+        .references {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Uncovering Patterns: San Francisco Crime Data</h1>
+        <div class="author-note">By [Your Name] | Data Story for Social Data Analysis and Visualization 2026</div>
+
+        <p>
+            Welcome to my data story. For the past several weeks, we have been exploring a comprehensive dataset containing records of incidents reported to the San Francisco Police Department (SFPD) from 2003 to the present.
+            <em>(Here you should introduce the dataset in your own words. Explain what "Personal Focus Crimes" are to a general audience. Do not use AI generated text for your arguments!)</em>
+        </p>
+
+        <h2>1. The Long-Term Trend (Static Chart)</h2>
+        <p>
+            First, let's look at how certain crime types have evolved over the years.
+            <em>(Add your narrative here. What is the insight? Did a particular crime drop after a specific year? Why might that be?)</em>
+        </p>
+
+        <figure>
+            <!-- Replace 'visualizations/static_chart.png' with your actual exported matplotlib PNG/SVG file -->
+            <img src="visualizations/static_chart.png" alt="Static chart showing long-term trends">
+            <figcaption>
+                <strong>Figure 1:</strong> This chart illustrates... <em>(Write a detailed caption telling the reader exactly what to notice and why it matters)</em>.
+            </figcaption>
+        </figure>
+
+        <h2>2. Geographical Hotspots (Map)</h2>
+        <p>
+            Crime isn't evenly distributed across the city. By mapping the incidents, we can see clear geographical patterns.
+            <em>(Add your narrative. Does crime cluster in the Tenderloin or Mission district? How does this connect to real-world context?)</em>
+        </p>
+
+        <figure>
+            <!-- Replace 'visualizations/map.html' with your actual exported Folium or Plotly map HTML file -->
+            <iframe src="visualizations/map.html" title="Geographical distribution of crimes"></iframe>
+            <figcaption>
+                <strong>Figure 2:</strong> A choropleth/heatmap showing... <em>(Write your descriptive caption here)</em>.
+            </figcaption>
+        </figure>
+
+        <h2>3. Daily Rhythms (Interactive Plotly)</h2>
+        <p>
+            Finally, what time of day do these incidents occur? The interactive chart below allows you to explore the hourly distribution of different crime types.
+            <em>(Add your narrative. Explain what the user should try doing—e.g., "Try clicking on the legend to isolate vehicle thefts and notice how they peak at night.")</em>
+        </p>
+
+        <figure>
+            <!-- Replace 'visualizations/interactive_chart.html' with your exported Plotly HTML file from Week 8 -->
+            <iframe src="visualizations/interactive_chart.html" title="Interactive hourly crime distribution"></iframe>
+            <figcaption>
+                <strong>Figure 3:</strong> Interactive hourly trends. Hover over the bars for exact probabilities, and click the legend to toggle crime categories. <em>(Add more descriptive context)</em>.
+            </figcaption>
+        </figure>
+
+        <div class="references">
+            <h3>References & External Sources</h3>
+            <ul>
+                <li>San Francisco Police Department Incident Reports: 2003 to Present.</li>
+                <li><em>(Add links to any news articles, Wikipedia pages, or policy changes you mentioned in your story to explain anomalies)</em></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
