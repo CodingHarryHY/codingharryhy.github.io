@@ -1,151 +1,487 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SF Crime: Two Decades of Data</title>
-    <style>
-        /* Magazine style layout with dark theme */
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #1a1a2e;
-            color: #e0e0e0;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Four Times the City: The Drug Crisis in San Francisco's Tenderloin</title>
+  <style>
+    :root {
+      --bg: #f6f1e8;
+      --paper: #fffdf9;
+      --ink: #1e1f1c;
+      --muted: #5f6259;
+      --rule: #d7cfc0;
+      --accent: #8e2f2a;
+      --accent-soft: #efe0d6;
+      --teal: #1f6b69;
+      --shadow: 0 18px 50px rgba(41, 33, 19, 0.08);
+      --serif: Georgia, "Times New Roman", Times, serif;
+      --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --content: 740px;
+      --wide: 1120px;
+    }
 
-        /* Center content and restrict width for readability */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        h1 {
-            font-size: 2.5em;
-            color: #16c79a;
-            margin-bottom: 10px;
-            text-align: center;
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        h2 {
-            font-size: 1.8em;
-            color: #16c79a;
-            margin-top: 40px;
-            border-bottom: 2px solid #16213e;
-            padding-bottom: 10px;
-        }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(142, 47, 42, 0.08), transparent 26%),
+        radial-gradient(circle at top right, rgba(31, 107, 105, 0.09), transparent 20%),
+        linear-gradient(180deg, #f8f3eb 0%, #f6f1e8 280px, #f3eee5 100%);
+      color: var(--ink);
+      font-family: var(--serif);
+      line-height: 1.72;
+      text-rendering: optimizeLegibility;
+    }
 
-        p {
-            font-size: 1.1em;
-            margin-bottom: 20px;
-        }
+    a {
+      color: var(--teal);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+    }
 
-        /* Figure styling */
-        figure {
-            margin: 40px 0;
-            padding: 20px;
-            background-color: #16213e;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
+    .masthead {
+      border-bottom: 1px solid rgba(30, 31, 28, 0.12);
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: rgba(255, 253, 249, 0.72);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
 
-        /* Responsive images and iframes */
-        img, iframe {
-            width: 100%;
-            border: none;
-            border-radius: 4px;
-        }
+    .masthead-inner {
+      max-width: var(--wide);
+      margin: 0 auto;
+      padding: 0.9rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
 
-        iframe {
-            height: 500px;
-        }
+    .hero {
+      max-width: var(--wide);
+      margin: 0 auto;
+      padding: 4.5rem 1.25rem 3rem;
+      display: grid;
+      gap: 1.6rem;
+    }
 
-        figcaption {
-            margin-top: 15px;
-            font-size: 0.95em;
-            color: #a0a0b0;
-            font-style: italic;
-            border-left: 3px solid #16c79a;
-            padding-left: 10px;
-        }
+    .eyebrow {
+      font-family: var(--sans);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
 
-        .author-note {
-            text-align: center;
-            font-size: 0.9em;
-            color: #888;
-            margin-bottom: 40px;
-        }
+    h1 {
+      margin: 0;
+      max-width: 920px;
+      font-size: clamp(2.9rem, 5.2vw, 5.4rem);
+      line-height: 0.97;
+      letter-spacing: -0.04em;
+      font-weight: 700;
+    }
 
-        .references {
-            margin-top: 60px;
-            padding-top: 20px;
-            border-top: 1px solid #333;
-            font-size: 0.9em;
-            color: #aaa;
-        }
-    </style>
+    .dek {
+      max-width: 720px;
+      font-size: 1.28rem;
+      color: #2d302b;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 260px;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .hero-card {
+      background: rgba(255, 253, 249, 0.82);
+      border: 1px solid rgba(30, 31, 28, 0.08);
+      box-shadow: var(--shadow);
+      padding: 1.1rem 1.1rem 1rem;
+      border-radius: 16px;
+      font-family: var(--sans);
+    }
+
+    .hero-card strong {
+      display: block;
+      color: var(--accent);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.55rem;
+    }
+
+    .hero-card p {
+      margin: 0;
+      font-size: 0.96rem;
+      line-height: 1.5;
+      color: #43463f;
+    }
+
+    .content {
+      max-width: var(--content);
+      margin: 0 auto;
+      padding: 0 1.25rem 4rem;
+    }
+
+    .intro-note {
+      margin: 0 auto 3rem;
+      border-top: 2px solid var(--accent);
+      background: rgba(255, 253, 249, 0.7);
+      padding: 1.1rem 1.25rem;
+      box-shadow: var(--shadow);
+    }
+
+    .intro-note p {
+      margin: 0;
+      font-size: 1.03rem;
+    }
+
+    h2 {
+      margin: 4rem 0 1rem;
+      font-size: 2rem;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+
+    h3 {
+      margin: 2rem 0 0.8rem;
+      font-size: 1.24rem;
+      font-family: var(--sans);
+      color: var(--accent);
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      margin: 1rem 0;
+      font-size: 1.08rem;
+    }
+
+    .section-lead {
+      font-size: 1.18rem;
+      color: #32342e;
+    }
+
+    .pullquote {
+      margin: 2.2rem 0;
+      padding: 1.35rem 1.4rem;
+      border-left: 4px solid var(--accent);
+      background: var(--accent-soft);
+      font-size: 1.18rem;
+      line-height: 1.55;
+    }
+
+    .figure-block {
+      max-width: var(--wide);
+      margin: 3.2rem auto;
+      padding: 0 1.25rem;
+    }
+
+    .figure-frame {
+      background: var(--paper);
+      border: 1px solid rgba(30, 31, 28, 0.08);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .figure-frame img,
+    .figure-frame iframe {
+      display: block;
+      width: 100%;
+      border: 0;
+      background: #fff;
+    }
+
+    .figure-frame iframe {
+      min-height: 680px;
+    }
+
+    figcaption {
+      padding: 1rem 1.2rem 1.1rem;
+      font-family: var(--sans);
+      color: #40423d;
+      background: rgba(255, 253, 249, 0.92);
+      border-top: 1px solid rgba(30, 31, 28, 0.08);
+      line-height: 1.55;
+      font-size: 0.96rem;
+    }
+
+    .data-points {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.9rem;
+      margin: 1.4rem 0 0.6rem;
+    }
+
+    .data-point {
+      padding: 1rem;
+      background: rgba(255, 253, 249, 0.74);
+      border: 1px solid rgba(30, 31, 28, 0.08);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .data-point .value {
+      display: block;
+      font-family: var(--sans);
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.1;
+      margin-bottom: 0.35rem;
+    }
+
+    .data-point .label {
+      font-family: var(--sans);
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .solutions {
+      margin-top: 2rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .solution-card {
+      background: rgba(255, 253, 249, 0.78);
+      border: 1px solid rgba(30, 31, 28, 0.08);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 1rem 1.1rem;
+    }
+
+    .solution-card h4 {
+      margin: 0 0 0.45rem;
+      font-family: var(--sans);
+      font-size: 1rem;
+      color: var(--ink);
+    }
+
+    .solution-card p {
+      margin: 0;
+      font-size: 0.98rem;
+    }
+
+    .method-note,
+    .sources {
+      background: rgba(255, 253, 249, 0.78);
+      border: 1px solid rgba(30, 31, 28, 0.08);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 1rem 1.1rem;
+      margin-top: 2rem;
+    }
+
+    .method-note p,
+    .sources li {
+      font-size: 0.98rem;
+      color: #3f423b;
+    }
+
+    .sources ul {
+      margin: 0.7rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .footer {
+      max-width: var(--content);
+      margin: 0 auto;
+      padding: 0 1.25rem 4rem;
+      color: var(--muted);
+      font-family: var(--sans);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .data-points {
+        grid-template-columns: 1fr;
+      }
+
+      .figure-frame iframe {
+        min-height: 520px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .masthead-inner {
+        flex-direction: column;
+      }
+
+      h1 {
+        font-size: 2.7rem;
+      }
+
+      .dek,
+      .section-lead,
+      p {
+        font-size: 1rem;
+      }
+
+      .figure-frame iframe {
+        min-height: 460px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Uncovering Patterns: San Francisco Crime Data</h1>
-        <div class="author-note">By [Your Name] | Data Story for Social Data Analysis and Visualization 2026</div>
-
-        <p>
-            Welcome to my data story. For the past several weeks, we have been exploring a comprehensive dataset containing records of incidents reported to the San Francisco Police Department (SFPD) from 2003 to the present.
-            <em>(Here you should introduce the dataset in your own words. Explain what "Personal Focus Crimes" are to a general audience. Do not use AI generated text for your arguments!)</em>
-        </p>
-
-        <h2>1. The Long-Term Trend (Static Chart)</h2>
-        <p>
-            First, let's look at how certain crime types have evolved over the years.
-            <em>(Add your narrative here. What is the insight? Did a particular crime drop after a specific year? Why might that be?)</em>
-        </p>
-
-        <figure>
-            <!-- Replace 'visualizations/static_chart.png' with your actual exported matplotlib PNG/SVG file -->
-            <img src="visualizations/static_chart.png" alt="Static chart showing long-term trends">
-            <figcaption>
-                <strong>Figure 1:</strong> This chart illustrates... <em>(Write a detailed caption telling the reader exactly what to notice and why it matters)</em>.
-            </figcaption>
-        </figure>
-
-        <h2>2. Geographical Hotspots (Map)</h2>
-        <p>
-            Crime isn't evenly distributed across the city. By mapping the incidents, we can see clear geographical patterns.
-            <em>(Add your narrative. Does crime cluster in the Tenderloin or Mission district? How does this connect to real-world context?)</em>
-        </p>
-
-        <figure>
-            <!-- Replace 'visualizations/map.html' with your actual exported Folium or Plotly map HTML file -->
-            <iframe src="visualizations/map.html" title="Geographical distribution of crimes"></iframe>
-            <figcaption>
-                <strong>Figure 2:</strong> A choropleth/heatmap showing... <em>(Write your descriptive caption here)</em>.
-            </figcaption>
-        </figure>
-
-        <h2>3. Daily Rhythms (Interactive Plotly)</h2>
-        <p>
-            Finally, what time of day do these incidents occur? The interactive chart below allows you to explore the hourly distribution of different crime types.
-            <em>(Add your narrative. Explain what the user should try doing—e.g., "Try clicking on the legend to isolate vehicle thefts and notice how they peak at night.")</em>
-        </p>
-
-        <figure>
-            <!-- Replace 'visualizations/interactive_chart.html' with your exported Plotly HTML file from Week 8 -->
-            <iframe src="visualizations/interactive_chart.html" title="Interactive hourly crime distribution"></iframe>
-            <figcaption>
-                <strong>Figure 3:</strong> Interactive hourly trends. Hover over the bars for exact probabilities, and click the legend to toggle crime categories. <em>(Add more descriptive context)</em>.
-            </figcaption>
-        </figure>
-
-        <div class="references">
-            <h3>References & External Sources</h3>
-            <ul>
-                <li>San Francisco Police Department Incident Reports: 2003 to Present.</li>
-                <li><em>(Add links to any news articles, Wikipedia pages, or policy changes you mentioned in your story to explain anomalies)</em></li>
-            </ul>
-        </div>
+  <div class="masthead">
+    <div class="masthead-inner">
+      <div>San Francisco crime data story</div>
+      <div>Tenderloin • police district data • 2003-2025</div>
     </div>
+  </div>
+
+  <header class="hero">
+    <h1>Four Times the City: The Drug Crisis in San Francisco’s Tenderloin</h1>
+    <div class="hero-grid">
+      <p class="dek">Within a few blocks of City Hall and Union Square, the Tenderloin appears in the data as a district where drug offenses are not simply common, but structurally overrepresented. The patterns below suggest that this is less a story of generalized disorder than of one concentrated crisis, rooted in geography, poverty, and policy.</p>
+      <aside class="hero-card">
+        <strong>Core claim</strong>
+        <p>The Tenderloin’s drug-offense profile is an extreme outlier inside San Francisco. Understanding where that concentration sits, how it differs from other crimes, and how it has changed over time is a first step toward any serious response.</p>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+<!--    <section class="content">-->
+<!--      <div class="intro-note">-->
+<!--        <p>The point of this article is not to turn one neighborhood into a spectacle. It is to use data carefully: to show what stands out, to avoid overstating what police records can prove, and to keep the human stakes visible behind every count and every ratio.</p>-->
+<!--      </div>-->
+
+<!--      <p class="section-lead">The Tenderloin occupies a remarkably small piece of San Francisco’s downtown core. Walk west from Union Square or south from Nob Hill and the atmosphere changes quickly: luxury hotels and office towers give way to a neighborhood long associated with poverty, single-room-occupancy housing, street-level drug markets, and visible homelessness. That contrast is part of why the district matters. The crisis is not hidden at the urban fringe. It sits in the civic center of one of the wealthiest cities in the world.</p>-->
+
+<!--      <p>Crime data cannot tell the whole story of life in the Tenderloin. It reflects reporting behavior, police presence, enforcement priorities, and administrative categories as much as it reflects harm itself. But even with those limits, the district’s profile is striking enough to deserve attention. Among San Francisco’s police districts, the Tenderloin is not simply “high crime” in a generic sense. It has a highly specific signature.</p>-->
+
+<!--      <div class="pullquote">The Tenderloin’s problem is not that every kind of crime is unusually high. The data instead points to a narrower and more troubling concentration: drug offenses occur there at almost four times the citywide average for a district’s crime mix.</div>-->
+<!--    </section>-->
+
+    <figure class="figure-block">
+      <div class="figure-frame">
+        <img src="./images/temporal_overview.png" alt="Heatmap of conditional crime profiles by police district">
+      </div>
+      <figcaption><strong>Figure 1.</strong> This heatmap compares each district’s crime mix to the citywide baseline. Values above 1 mean a crime is more common in that district’s local profile than in San Francisco overall. The deepest red cell belongs to Drug Offense in the Tenderloin at 3.98, while several property crimes in the same district fall well below 1. The key point is not “everything is worse there”; it is that the district’s crime structure is unusually concentrated around drug enforcement and drug-market activity.</figcaption>
+    </figure>
+
+    <section class="content">
+      <h2>A district with a distinct crime fingerprint</h2>
+      <p>The first figure is the clearest starting point because it separates scale from composition. Tenderloin’s drug-offense ratio of <strong>3.98</strong> is the most extreme value in the heatmap. In plain terms, drug offenses make up nearly four times the share of recorded incidents there that they do in the city as a whole. That is not what we would expect if the district were simply “more of everything.”</p>
+
+      <p>In fact, several other categories move in the opposite direction. Motor Vehicle Theft sits at <strong>0.31</strong>, Vandalism at <strong>0.52</strong>, and Larceny Theft at <strong>0.57</strong>. Those are not the numbers of a district where every crime type is uniformly inflated. They suggest a place whose recorded crime profile is sharply imbalanced. The neighborhood’s pattern is closer to a fingerprint than to a blanket label.</p>
+
+      <p>That imbalance also aligns with the social geography of the Tenderloin. A dense low-income residential area with fewer private vehicles, a long history of street-level drug markets, and concentrated service provision will not necessarily produce the same property-crime structure as districts shaped by commuting, nightlife, tourism, or car ownership. The ratios do not prove why the pattern exists. But they do show that the pattern is real and unusually specific.</p>
+
+      <div class="data-points">
+        <div class="data-point">
+          <span class="value">3.98</span>
+          <span class="label">Drug Offense ratio in the Tenderloin, the strongest red cell in the entire heatmap.</span>
+        </div>
+        <div class="data-point">
+          <span class="value">0.31</span>
+          <span class="label">Motor Vehicle Theft ratio in the Tenderloin, showing how low some property crimes sit relative to the city average.</span>
+        </div>
+        <div class="data-point">
+          <span class="value">0.52</span>
+          <span class="label">Tenderloin’s Vandalism ratio, another reminder that the district is not simply elevated across the board.</span>
+        </div>
+      </div>
+    </section>
+
+    <figure class="figure-block">
+      <div class="figure-frame">
+        <iframe src="./visualizations/drug_offense_counts_map.html" title="Interactive map of drug offense counts by police district" loading="lazy"></iframe>
+      </div>
+      <figcaption><strong>Figure 2.</strong> This interactive map shows the raw count of recorded Drug Offense incidents by police district. Hover to inspect exact values. Tenderloin stands out immediately with 52,667 recorded incidents across the dataset, more than double Southern and Mission, the next two districts. The map makes the concentration legible in space: the city’s most intense cluster is downtown, not at the edge.</figcaption>
+    </figure>
+
+    <section class="content">
+      <h2>The concentration is visible on the map, too</h2>
+      <p>The ratio heatmap tells us that the Tenderloin is unusually drug-heavy in relative terms. The map answers a different question: how large is the absolute concentration? Here the result is just as striking. Across the full dataset, the Tenderloin records <strong>52,667</strong> drug-offense incidents. Southern records <strong>25,450</strong>, Mission <strong>23,546</strong>, and Richmond only <strong>2,418</strong>.</p>
+
+      <p>That means the Tenderloin has more than twice the count of Southern, more than twice the count of Mission, and more than twenty times the count of Richmond. This does not prove that drug activity is confined to the neighborhood, nor does it prove that all of those incidents reflect the same kind of policing or the same street conditions. But it does reinforce the idea of a downtown concentration with strong spillover around nearby districts, especially Southern and Mission.</p>
+
+      <p>That spatial clustering matters because the Tenderloin is adjacent to major institutions and corridors of urban life: City Hall, Civic Center, transit, hotels, and retail zones. The geography of the crisis is part of the story. It is not isolated from the city’s civic and commercial core. It is embedded within it.</p>
+    </section>
+
+    <figure class="figure-block">
+      <div class="figure-frame">
+        <iframe src="./visualizations/crime_trends_in_tenderloin.html" title="Interactive line chart of crime trends in Tenderloin" loading="lazy"></iframe>
+      </div>
+      <figcaption><strong>Figure 3.</strong> This interactive line chart tracks all focused crime categories in the Tenderloin from 2003 to 2025. Use the legend to hide or reveal categories. Drug Offense dominates the late 2000s, peaking above 4,800 incidents in both 2008 and 2009, then falling sharply through the 2010s before rising again after 2018. The chart suggests a changing rhythm rather than a one-time spike.</figcaption>
+    </figure>
+
+    <section class="content">
+      <h2>The trend is not flat; it bends with time</h2>
+      <p>The time series adds a necessary layer of nuance. Drug Offense is not a steadily rising line. It peaks dramatically in the late 2000s, reaching <strong>4,822</strong> incidents in 2008 and <strong>4,795</strong> in 2009. From there, it falls for years, bottoming out at <strong>731</strong> in 2017. That is a steep decline by any standard.</p>
+
+      <p>But the story does not end with decline. After 2018, drug offenses rise again in the Tenderloin: <strong>1,752</strong> in 2018, <strong>2,062</strong> in 2022, and above <strong>2,400</strong> in both 2023 and 2025. The line never returns to the late-2000s peak, yet it clearly rebounds from the 2017 low. In other words, the crisis changes shape, but it does not disappear.</p>
+
+      <p>The interactive chart also helps place Drug Offense next to the rest of the district’s crime profile. Larceny Theft becomes more prominent in parts of the 2010s and early 2020s, while Assault remains consistently high. That comparison matters because it prevents us from turning one category into the whole neighborhood. Still, Drug Offense remains one of the strongest long-run signals in Tenderloin’s data, especially when paired with the ratio and map views above.</p>
+
+      <div class="pullquote">One chart shows composition, one shows geography, and one shows change over time. Together they tell a more careful story than any single metric could: the Tenderloin is a concentrated drug-offense district, but the concentration has also shifted over the last two decades.</div>
+
+      <h2>What is being tried now?</h2>
+      <p>No data story about the Tenderloin is complete without asking what happens after diagnosis. San Francisco has spent the last several years experimenting with overlapping responses: outreach, shelter placement, housing referrals, public-health interventions, and emergency initiatives focused specifically on the neighborhood. Official city reporting on the Tenderloin has emphasized reducing unsheltered homelessness and connecting residents to services rather than treating enforcement as the only lever.</p>
+
+      <div class="solutions">
+        <div class="solution-card">
+          <h4>Housing-first interventions</h4>
+          <p>San Francisco’s homelessness response has repeatedly emphasized shelter access, navigation support, and pathways into housing. The logic is straightforward: a neighborhood cannot arrest its way out of street-level crisis if unstable housing remains untouched.</p>
+        </div>
+        <div class="solution-card">
+          <h4>Harm reduction and overdose prevention</h4>
+          <p>The city’s own Tenderloin reporting frames service access, public-health support, and overdose response as central pieces of the local strategy. This recognizes that drug crises are also health crises, not just law-enforcement events.</p>
+        </div>
+        <div class="solution-card">
+          <h4>Targeted outreach instead of generic visibility patrols</h4>
+          <p>Street outreach teams, shelter referrals, and crisis-response programs aim to address the conditions that repeatedly surface in the district. Whether they are sufficient is another question, but the policy logic is more structural than purely punitive.</p>
+        </div>
+      </div>
+
+      <div class="method-note">
+        <h3>Why caution still matters</h3>
+        <p>Police records are not neutral sensors of urban reality. A district with more enforcement or more service infrastructure may generate more incidents on paper even if the underlying harms are changing differently. That is especially important for Drug Offense. A fall in recorded cases does not automatically mean drug use declined; it may reflect changing enforcement priorities. A rise does not automatically mean the neighborhood deteriorated in a simple linear way. This story therefore treats the charts as indicators of concentration and institutional attention, not as a perfect census of lived harm.</p>
+      </div>
+
+      <h2>Conclusion</h2>
+      <p>The number <strong>3.98</strong> is memorable because it is dramatic. But its real importance is interpretive: it tells us that the Tenderloin’s crisis is not well described by the vague phrase “bad neighborhood.” The district’s data points to a specific concentration around drug offenses, visible in its crime composition, visible on the map, and visible in the long arc of its time series.</p>
+
+      <p>That makes the policy challenge clearer. If the problem is structural, the response has to be structural too. The data does not ask us to look away from the Tenderloin, nor to flatten it into a stereotype. It asks us to see the district as a mirror of citywide choices about housing, public health, and where concentrated hardship is allowed to remain.</p>
+
+      <p><em>The Tenderloin is only a few minutes on foot from San Francisco City Hall. The data makes one thing hard to deny: the distance to meaningful change is political, not geographic.</em></p>
+
+      <div class="sources">
+        <h3>Sources and references</h3>
+        <ul>
+          <li>Course dataset assembled from San Francisco Police Department incident reports, analyzed in the Social Data Analysis and Visualization course project.</li>
+          <li>San Francisco city reporting on services and street homelessness in the Tenderloin: <a href="https://www.sf.gov/data--reducing-homelessness-and-street-sleeping-tenderloin">sf.gov/data--reducing-homelessness-and-street-sleeping-tenderloin</a>.</li>
+          <li>Style inspiration: <a href="https://ourworldindata.org/the-human-cost-of-unsafe-abortions">Our World in Data, “The human cost of unsafe abortions”</a>.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Built as a linear, author-driven narrative page for GitHub Pages. Interactive figures are embedded as local HTML exports so readers can inspect the data without leaving the story.</p>
+  </footer>
 </body>
 </html>
