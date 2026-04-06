@@ -89,11 +89,16 @@
 
     h1 {
       margin: 0;
-      max-width: 920px;
-      font-size: clamp(2.9rem, 5.2vw, 5.4rem);
-      line-height: 0.97;
-      letter-spacing: -0.04em;
+      max-width: 1080px;
+      font-size: clamp(2.85rem, 4.35vw, 4.95rem);
+      line-height: 0.98;
+      letter-spacing: -0.038em;
       font-weight: 700;
+      text-wrap: balance;
+    }
+
+    .nowrap {
+      white-space: nowrap;
     }
 
     .dek {
@@ -352,7 +357,7 @@
   </div>
 
   <header class="hero">
-    <h1>Four Times the City: The Drug Crisis in San Francisco’s Tenderloin</h1>
+    <h1>Four Times the City: The Drug Crisis in <span class="nowrap">San Francisco’s</span> <span class="nowrap">Tenderloin</span></h1>
     <div class="hero-grid">
       <p class="dek">Within a few blocks of City Hall and Union Square, the Tenderloin appears in the data as a district where drug offenses are not simply common, but structurally overrepresented. The patterns below suggest that this is less a story of generalized disorder than of one concentrated crisis, rooted in geography, poverty, and policy.</p>
       <aside class="hero-card">
@@ -363,32 +368,24 @@
   </header>
 
   <main>
-<!--    <section class="content">-->
-<!--      <div class="intro-note">-->
-<!--        <p>The point of this article is not to turn one neighborhood into a spectacle. It is to use data carefully: to show what stands out, to avoid overstating what police records can prove, and to keep the human stakes visible behind every count and every ratio.</p>-->
-<!--      </div>-->
-
-<!--      <p class="section-lead">The Tenderloin occupies a remarkably small piece of San Francisco’s downtown core. Walk west from Union Square or south from Nob Hill and the atmosphere changes quickly: luxury hotels and office towers give way to a neighborhood long associated with poverty, single-room-occupancy housing, street-level drug markets, and visible homelessness. That contrast is part of why the district matters. The crisis is not hidden at the urban fringe. It sits in the civic center of one of the wealthiest cities in the world.</p>-->
-
-<!--      <p>Crime data cannot tell the whole story of life in the Tenderloin. It reflects reporting behavior, police presence, enforcement priorities, and administrative categories as much as it reflects harm itself. But even with those limits, the district’s profile is striking enough to deserve attention. Among San Francisco’s police districts, the Tenderloin is not simply “high crime” in a generic sense. It has a highly specific signature.</p>-->
-
-<!--      <div class="pullquote">The Tenderloin’s problem is not that every kind of crime is unusually high. The data instead points to a narrower and more troubling concentration: drug offenses occur there at almost four times the citywide average for a district’s crime mix.</div>-->
-<!--    </section>-->
 
     <figure class="figure-block">
       <div class="figure-frame">
         <img src="./images/temporal_overview.png" alt="Heatmap of conditional crime profiles by police district">
       </div>
-      <figcaption><strong>Figure 1.</strong> This heatmap compares each district’s crime mix to the citywide baseline. Values above 1 mean a crime is more common in that district’s local profile than in San Francisco overall. The deepest red cell belongs to Drug Offense in the Tenderloin at 3.98, while several property crimes in the same district fall well below 1. The key point is not “everything is worse there”; it is that the district’s crime structure is unusually concentrated around drug enforcement and drug-market activity.</figcaption>
+      <figcaption><strong>Figure 1.</strong> This heatmap compares each district’s crime mix to the citywide baseline. Values above 1 mean a crime is more common in that district’s local profile than in San Francisco overall. The deepest red cell belongs to Drug Offense in the Tenderloin at 3.98, while several property crimes in the same district fall well below 1.</figcaption>
     </figure>
 
     <section class="content">
-      <h2>A district with a distinct crime fingerprint</h2>
-      <p>The first figure is the clearest starting point because it separates scale from composition. Tenderloin’s drug-offense ratio of <strong>3.98</strong> is the most extreme value in the heatmap. In plain terms, drug offenses make up nearly four times the share of recorded incidents there that they do in the city as a whole. That is not what we would expect if the district were simply “more of everything.”</p>
+      <h2>Why might the district look this way?</h2>
 
-      <p>In fact, several other categories move in the opposite direction. Motor Vehicle Theft sits at <strong>0.31</strong>, Vandalism at <strong>0.52</strong>, and Larceny Theft at <strong>0.57</strong>. Those are not the numbers of a district where every crime type is uniformly inflated. They suggest a place whose recorded crime profile is sharply imbalanced. The neighborhood’s pattern is closer to a fingerprint than to a blanket label.</p>
+      <p>The Tenderloin has long concentrated deep poverty, homelessness, and behavioral health needs. Those conditions can make drug-related problems more visible and more persistent over time <a href="https://www.aha.org/hav/case-study/tenderloin-health-improvement-partnership">[1]</a>.</p>
 
-      <p>That imbalance also aligns with the social geography of the Tenderloin. A dense low-income residential area with fewer private vehicles, a long history of street-level drug markets, and concentrated service provision will not necessarily produce the same property-crime structure as districts shaped by commuting, nightlife, tourism, or car ownership. The ratios do not prove why the pattern exists. But they do show that the pattern is real and unusually specific.</p>
+      <p>The neighborhood has also been tied for years to open-air drug markets, making drug activity more likely to cluster there than in many other districts <a href="https://www.sf.gov/news--san-francisco-public-safety-initiative-disrupt-open-air-drug-markets-seizing-fentanyl-record">[2]</a>.</p>
+
+      <p>At the same time, the district is a dense, walkable downtown neighborhood where most people rely on public transportation rather than personal vehicles. That may help explain why vehicle-related crimes appear less prominent.</p>
+
+      <p>Police attention matters as well. The Tenderloin has received sustained enforcement around violence, street disorder, and drug sales, so police records likely reflect both underlying conditions and enforcement intensity <a href="https://www.sf.gov/data--reducing-violent-crime-and-drug-sales-tenderloin">[3]</a>.</p>
 
       <div class="data-points">
         <div class="data-point">
@@ -472,16 +469,16 @@
       <div class="sources">
         <h3>Sources and references</h3>
         <ul>
-          <li>Course dataset assembled from San Francisco Police Department incident reports, analyzed in the Social Data Analysis and Visualization course project.</li>
-          <li>San Francisco city reporting on services and street homelessness in the Tenderloin: <a href="https://www.sf.gov/data--reducing-homelessness-and-street-sleeping-tenderloin">sf.gov/data--reducing-homelessness-and-street-sleeping-tenderloin</a>.</li>
-          <li>Style inspiration: <a href="https://ourworldindata.org/the-human-cost-of-unsafe-abortions">Our World in Data, “The human cost of unsafe abortions”</a>.</li>
+          <li>[1] <a href="https://www.aha.org/hav/case-study/tenderloin-health-improvement-partnership">American Hospital Association, “Tenderloin Health Improvement Partnership.”</a></li>
+          <li>[2] <a href="https://www.sf.gov/news--san-francisco-public-safety-initiative-disrupt-open-air-drug-markets-seizing-fentanyl-record">City and County of San Francisco, “San Francisco Public Safety Initiative to disrupt open-air drug markets, seizing fentanyl at record rates.”</a></li>
+          <li>[3] <a href="https://www.sf.gov/data--reducing-violent-crime-and-drug-sales-tenderloin">City and County of San Francisco, “Reducing violent crime and drug sales in the Tenderloin.”</a></li>
+          <li>[4] Course dataset assembled from San Francisco Police Department incident reports, analyzed in the Social Data Analysis and Visualization course project.</li>
+          <li>[5] <a href="https://www.sf.gov/data--reducing-homelessness-and-street-sleeping-tenderloin">City and County of San Francisco, “Reducing homelessness and street sleeping in the Tenderloin.”</a></li>
+          <li>[6] <a href="https://ourworldindata.org/the-human-cost-of-unsafe-abortions">Our World in Data, “The human cost of unsafe abortions.”</a></li>
         </ul>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <p>Built as a linear, author-driven narrative page for GitHub Pages. Interactive figures are embedded as local HTML exports so readers can inspect the data without leaving the story.</p>
-  </footer>
 </body>
 </html>
