@@ -314,6 +314,35 @@
       padding-left: 1.2rem;
     }
 
+    .sources li {
+      scroll-margin-top: 100px;
+      transition: background-color 0.35s ease, box-shadow 0.35s ease;
+      border-radius: 8px;
+      padding: 0.2rem 0.35rem;
+      margin-left: -0.35rem;
+    }
+
+    .sources li:target {
+      animation: ref-flash 1.6s ease;
+      background: rgba(142, 47, 42, 0.12);
+      box-shadow: 0 0 0 1px rgba(142, 47, 42, 0.18);
+    }
+
+    @keyframes ref-flash {
+      0% {
+        background: rgba(142, 47, 42, 0);
+        box-shadow: 0 0 0 0 rgba(142, 47, 42, 0);
+      }
+      20% {
+        background: rgba(142, 47, 42, 0.22);
+        box-shadow: 0 0 0 1px rgba(142, 47, 42, 0.28);
+      }
+      100% {
+        background: rgba(142, 47, 42, 0.12);
+        box-shadow: 0 0 0 1px rgba(142, 47, 42, 0.18);
+      }
+    }
+
     .footer {
       max-width: var(--content);
       margin: 0 auto;
@@ -371,7 +400,7 @@
           crime rates are far higher than the city average, even as San Francisco City Hall stands just nearby.</p>
         <p class="dek" style="margin:0;">This is not simply a concentration of drug crime, but the visible outcome of a
           deeply uneven city — where just one street apart, prosperity and extreme deprivation coexist, shaping a space
-          where crisis becomes normalized <a href="https://crossing.cw.com.tw/article/5733">[1]</a>.</p>
+          where crisis becomes normalized <a href="#ref-1">[1]</a>.</p>
       </div>
       <aside class="hero-card">
         <strong>Core claim</strong>
@@ -394,13 +423,13 @@
     <section class="content">
       <h2>Why might the district look this way?</h2>
 
-      <p>The Tenderloin has long concentrated deep poverty, homelessness, and behavioral health needs. Those conditions can make drug-related problems more visible and more persistent over time <a href="https://www.aha.org/hav/case-study/tenderloin-health-improvement-partnership">[2]</a>.</p>
+      <p>The Tenderloin has long concentrated deep poverty, homelessness, and behavioral health needs. Those conditions can make drug-related problems more visible and more persistent over time <a href="#ref-2">[2]</a>.</p>
 
-      <p>The neighborhood has also been tied for years to open-air drug markets, making drug activity more likely to cluster there than in many other districts <a href="https://www.sf.gov/news--san-francisco-public-safety-initiative-disrupt-open-air-drug-markets-seizing-fentanyl-record">[3]</a>.</p>
+      <p>The neighborhood has also been tied for years to open-air drug markets, making drug activity more likely to cluster there than in many other districts <a href="#ref-3">[3]</a>.</p>
 
       <p>At the same time, the district is a dense, walkable downtown neighborhood where most people rely on public transportation rather than personal vehicles. That may help explain why vehicle-related crimes appear less prominent.</p>
 
-      <p>Police attention matters as well. The Tenderloin has received sustained enforcement around violence, street disorder, and drug sales, so police records likely reflect both underlying conditions and enforcement intensity <a href="https://www.sf.gov/data--reducing-violent-crime-and-drug-sales-tenderloin">[4]</a>.</p>
+      <p>Police attention matters as well. The Tenderloin has received sustained enforcement around violence, street disorder, and drug sales, so police records likely reflect both underlying conditions and enforcement intensity <a href="#ref-4">[4]</a>.</p>
 
       <div class="data-points">
         <div class="data-point">
@@ -429,9 +458,9 @@
       <h2>The hotspot does not stop at the Tenderloin</h2>
       <p>The concentration of drug offenses does not stop at the Tenderloin’s administrative boundary. The Tenderloin is still the most intense district in the map, but the surrounding districts do not suddenly fade to low levels. Southern and Mission also remain heavily shaded, suggesting that the problem extends beyond a single neighborhood and into the broader downtown corridor.</p>
 
-      <p>A 2024 CBS report described a major police drug operation spanning the Tenderloin, UN Plaza, and the public library area nearby <a href="https://www.cbsnews.com/sanfrancisco/news/sfpd-tenderloin-civic-center-un-plaza-library-drug-operation-13-5-lbs-fentanyl-meth-cocaine/">[5]</a>, while San Francisco’s own public safety reporting treats the Tenderloin and South of Market as a connected enforcement zone rather than isolated hotspots <a href="https://www.sf.gov/news--san-francisco-public-safety-initiative-disrupt-open-air-drug-markets-seizing-fentanyl-record">[3]</a>.</p>
+      <p>A 2024 CBS report described a major police drug operation spanning the Tenderloin, UN Plaza, and the public library area nearby <a href="#ref-5">[5]</a>, while San Francisco’s own public safety reporting treats the Tenderloin and South of Market as a connected enforcement zone rather than isolated hotspots <a href="#ref-3">[3]</a>.</p>
 
-      <p>The effects are not only statistical. Residents, businesses, and local institutions have described the surrounding area as a place of growing fear, disorder, and displacement. Lawsuits and local reporting in 2024 repeatedly used the language of a “containment zone,” arguing that visible drug markets and street disorder were no longer confined to a narrow set of blocks and were creating broader anxiety for people living and working nearby <a href="https://apnews.com/article/8a2dcef7f3ade17f655674bddf31a056">[6]</a> <a href="https://localnewsmatters.org/2024/03/19/tenderloin-residents-say-theyre-sick-of-being-containment-zone-for-drugs-homelessness/">[7]</a>.</p>
+      <p>The effects are not only statistical. Residents, businesses, and local institutions have described the surrounding area as a place of growing fear, disorder, and displacement. Lawsuits and local reporting in 2024 repeatedly used the language of a “containment zone,” arguing that visible drug markets and street disorder were no longer confined to a narrow set of blocks and were creating broader anxiety for people living and working nearby <a href="#ref-6">[6]</a> <a href="#ref-7">[7]</a>.</p>
     </section>
 
     <figure class="figure-block">
@@ -445,9 +474,9 @@
       <h2>A trend marked by sharp swings</h2>
       <p>Drug Offense reaches its highest levels in <strong>2008</strong> and <strong>2009</strong>, when recorded incidents rise above 4,800 a year. That peak likely reflects a period when street-level narcotics activity in the Tenderloin was both highly visible and heavily recorded by police.</p>
 
-      <p>From 2010 to 2017, the series falls almost continuously, dropping to <strong>731</strong> incidents in 2017. Part of that decline likely reflects broader changes in California drug enforcement, especially after Proposition 47 reduced penalties for some drug possession offenses and helped drive down drug arrests statewide <a href="https://www.ucsf.edu/news/2018/06/410826/prop-47-lessened-racial-disparities-drug-arrests">[8]</a>.</p>
+      <p>From 2010 to 2017, the series falls almost continuously, dropping to <strong>731</strong> incidents in 2017. Part of that decline likely reflects broader changes in California drug enforcement, especially after Proposition 47 reduced penalties for some drug possession offenses and helped drive down drug arrests statewide <a href="#ref-8">[8]</a>.</p>
 
-      <p>After 2018, the line turns upward again. That rebound fits the later fentanyl era and the renewed visibility of open-air drug markets downtown, which pushed San Francisco into repeated Tenderloin-focused emergency and enforcement responses <a href="https://www.sf.gov/information--learn-about-tenderloin-emergency-initiative">[9]</a> <a href="https://www.sf.gov/information--about-fentanyl">[10]</a>. The exact causes cannot be read from the chart alone, but the pattern is clear: the problem eased for a time, then returned in a new phase.</p>
+      <p>After 2018, the line turns upward again. That rebound fits the later fentanyl era and the renewed visibility of open-air drug markets downtown, which pushed San Francisco into repeated Tenderloin-focused emergency and enforcement responses <a href="#ref-9">[9]</a> <a href="#ref-10">[10]</a>. The exact causes cannot be read from the chart alone, but the pattern is clear: the problem eased for a time, then returned in a new phase.</p>
 
       <h2 class="section-title">What is being tried now?</h2>
       <p>No data story about the Tenderloin is complete without asking what happens after diagnosis. San Francisco has spent the last several years experimenting with overlapping responses: outreach, shelter placement, housing referrals, public-health interventions, and emergency initiatives focused specifically on the neighborhood. Official city reporting on the Tenderloin has emphasized reducing unsheltered homelessness and connecting residents to services rather than treating enforcement as the only lever.</p>
@@ -477,16 +506,16 @@
       <div class="sources">
         <h3>Sources and references</h3>
         <ul>
-          <li>[1] <a href="https://crossing.cw.com.tw/article/5733">Imbalanced San Francisco: Extreme Wealth and Extreme Poverty Just One Street Apart.</a></li>
-          <li>[2] <a href="https://www.aha.org/hav/case-study/tenderloin-health-improvement-partnership">American Hospital Association, “Tenderloin Health Improvement Partnership.”</a></li>
-          <li>[3] <a href="https://www.sf.gov/news--san-francisco-public-safety-initiative-disrupt-open-air-drug-markets-seizing-fentanyl-record">City and County of San Francisco, “San Francisco Public Safety Initiative to disrupt open-air drug markets, seizing fentanyl at record rates.”</a></li>
-          <li>[4] <a href="https://www.sf.gov/data--reducing-violent-crime-and-drug-sales-tenderloin">City and County of San Francisco, “Reducing violent crime and drug sales in the Tenderloin.”</a></li>
-          <li>[5] <a href="https://www.cbsnews.com/sanfrancisco/news/sfpd-tenderloin-civic-center-un-plaza-library-drug-operation-13-5-lbs-fentanyl-meth-cocaine/">CBS Bay Area, “SFPD one-day drug operation nets 13.5 lbs of narcotics near UN Plaza, library.”</a></li>
-          <li>[6] <a href="https://apnews.com/article/8a2dcef7f3ade17f655674bddf31a056">Associated Press, “Terrified residents of San Francisco's Tenderloin district sue for streets free of drugs, tents.”</a></li>
-          <li>[7] <a href="https://localnewsmatters.org/2024/03/19/tenderloin-residents-say-theyre-sick-of-being-containment-zone-for-drugs-homelessness/">Local News Matters, “Tenderloin residents say they’re sick of being ‘containment zone’ for drugs, homelessness.”</a></li>
-          <li>[8] <a href="https://www.ucsf.edu/news/2018/06/410826/prop-47-lessened-racial-disparities-drug-arrests">UC San Francisco, “Prop. 47 Lessened Racial Disparities in Drug Arrests.”</a></li>
-          <li>[9] <a href="https://www.sf.gov/information--learn-about-tenderloin-emergency-initiative">City and County of San Francisco, “Learn about the Tenderloin Emergency Initiative.”</a></li>
-          <li>[10] <a href="https://www.sf.gov/information--about-fentanyl">City and County of San Francisco, “About Fentanyl.”</a></li>
+          <li id="ref-1">[1] <a href="https://crossing.cw.com.tw/article/5733">Imbalanced San Francisco: Extreme Wealth and Extreme Poverty Just One Street Apart.</a></li>
+          <li id="ref-2">[2] <a href="https://www.aha.org/hav/case-study/tenderloin-health-improvement-partnership">American Hospital Association, “Tenderloin Health Improvement Partnership.”</a></li>
+          <li id="ref-3">[3] <a href="https://www.sf.gov/news--san-francisco-public-safety-initiative-disrupt-open-air-drug-markets-seizing-fentanyl-record">City and County of San Francisco, “San Francisco Public Safety Initiative to disrupt open-air drug markets, seizing fentanyl at record rates.”</a></li>
+          <li id="ref-4">[4] <a href="https://www.sf.gov/data--reducing-violent-crime-and-drug-sales-tenderloin">City and County of San Francisco, “Reducing violent crime and drug sales in the Tenderloin.”</a></li>
+          <li id="ref-5">[5] <a href="https://www.cbsnews.com/sanfrancisco/news/sfpd-tenderloin-civic-center-un-plaza-library-drug-operation-13-5-lbs-fentanyl-meth-cocaine/">CBS Bay Area, “SFPD one-day drug operation nets 13.5 lbs of narcotics near UN Plaza, library.”</a></li>
+          <li id="ref-6">[6] <a href="https://apnews.com/article/8a2dcef7f3ade17f655674bddf31a056">Associated Press, “Terrified residents of San Francisco's Tenderloin district sue for streets free of drugs, tents.”</a></li>
+          <li id="ref-7">[7] <a href="https://localnewsmatters.org/2024/03/19/tenderloin-residents-say-theyre-sick-of-being-containment-zone-for-drugs-homelessness/">Local News Matters, “Tenderloin residents say they’re sick of being ‘containment zone’ for drugs, homelessness.”</a></li>
+          <li id="ref-8">[8] <a href="https://www.ucsf.edu/news/2018/06/410826/prop-47-lessened-racial-disparities-drug-arrests">UC San Francisco, “Prop. 47 Lessened Racial Disparities in Drug Arrests.”</a></li>
+          <li id="ref-9">[9] <a href="https://www.sf.gov/information--learn-about-tenderloin-emergency-initiative">City and County of San Francisco, “Learn about the Tenderloin Emergency Initiative.”</a></li>
+          <li id="ref-10">[10] <a href="https://www.sf.gov/information--about-fentanyl">City and County of San Francisco, “About Fentanyl.”</a></li>
         </ul>
       </div>
     </section>
