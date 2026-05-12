@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Are You Really Watching? — Short Video User Behavior Analysis</title>
+    <meta name="description" content="An exploration of user behavior on short video platforms using the KuaiRand dataset, comparing algorithm-recommended vs randomly-inserted videos.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f4f4f0;
+            --card: #ffffff;
+            --text: #2d2d2d;
+            --text-secondary: #6b6b6b;
+            --accent: #4C72B0;
+            --accent-warm: #DD8452;
+            --border: #e0ddd8;
+            --shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            font-size: 16px;
+        }
+
+        /* --- Layout --- */
+        .container { max-width: 780px; margin: 0 auto; padding: 0 24px; }
+
+        section {
+            padding: 72px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        section:last-of-type { border-bottom: none; }
+
+        /* --- Typography --- */
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.65rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        p { margin-bottom: 16px; }
+
+        .lead {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .small { font-size: 0.88rem; color: var(--text-secondary); }
+
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        sup a {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* --- Stat highlight row --- */
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 28px 0;
+        }
+        .stat-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        .stat-card .num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+        }
+        .stat-card .label {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* --- Figures --- */
+        .figure-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            margin: 28px 0;
+        }
+        .figure-card img { width: 100%; display: block; border-radius: 6px; }
+        .figure-card iframe {
+            width: 100%;
+            border: none;
+            border-radius: 6px;
+            display: block;
+            overflow: hidden;
+        }
+
+        figcaption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+        figcaption strong { color: var(--text); }
+
+        /* --- Key insight box --- */
+        .insight {
+            background: #eef2f7;
+            border-left: 3px solid var(--accent);
+            border-radius: 0 8px 8px 0;
+            padding: 14px 18px;
+            margin: 20px 0;
+            font-size: 0.94rem;
+        }
+        .insight strong { color: var(--accent); }
+
+        /* --- Tab switcher --- */
+        .tab-group { margin: 28px 0; }
+        .tab-header {
+            display: flex;
+            gap: 0;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 0;
+        }
+        .tab-btn {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 10px 22px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-secondary);
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+        .tab-btn:hover { color: var(--text); }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        /* --- References --- */
+        .ref-list {
+            list-style: none;
+            padding: 0;
+        }
+        .ref-list li {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            padding-left: 28px;
+            text-indent: -28px;
+            line-height: 1.5;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 40px 24px;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .stat-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== SECTION 1: HERO ==================== -->
+<section id="hero">
+    <div class="container">
+        <h1>Are You Really<br>"Watching" Short Videos?</h1>
+        <p class="lead">
+            Billions of short videos are consumed daily. But how much of each video do users actually watch?
+            How different is the experience when the algorithm picks the video versus when it doesn't?
+        </p>
+        <p>
+            Using the <strong>KuaiRand</strong> dataset — a natural experiment on Kuaishou where random videos
+            were inserted into the algorithmic feed<sup><a href="#ref-1">[1]</a></sup> — we explore what user behavior
+            actually looks like when the algorithm's curation is removed, even briefly.
+        </p>
+    </div>
+</section>
+
+<!-- ==================== SECTION 2: EXPERIMENT DESIGN ==================== -->
+<section id="experiment">
+    <div class="container">
+        <h2>A Hidden Experiment Inside the Feed</h2>
+        <p>
+            KuaiRand embeds a controlled intervention into a live platform: while users browse
+            their normal recommendation feed, approximately 0.4% of videos are replaced with
+            <strong>randomly selected</strong> content — bypassing the algorithm entirely<sup><a href="#ref-1">[1]</a></sup>.
+            Both types of events coexist within the same browsing session.
+        </p>
+
+        <div class="stat-row">
+            <div class="stat-card">
+                <span class="num">~1,000</span>
+                <span class="label">Users</span>
+            </div>
+            <div class="stat-card">
+                <span class="num">12M+</span>
+                <span class="label">Standard events</span>
+            </div>
+            <div class="stat-card">
+                <span class="num">~43K</span>
+                <span class="label">Random events</span>
+            </div>
+        </div>
+
+        <p>
+            The chart below shows how frequently each type of user feedback occurs across all interactions.
+            Click and long-view are the dominant signals; social behaviors like follow or comment are
+            extremely rare (<2%).
+        </p>
+
+        <div class="figure-card">
+            <img src="../final_assets/fig0_feedback_rates.png" alt="Feedback signal rates across all events">
+            <figcaption>
+                <strong>Figure 1.</strong> Overall feedback signal rates. <em>is_click</em> (~37%) and <em>long_view</em> (~25%)
+                are the primary engagement signals. Social interactions like follow, comment, and forward are each below 0.5%.
+            </figcaption>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SECTION 3: ALGORITHM vs RANDOM ==================== -->
+<section id="engagement">
+    <div class="container">
+        <h2>The Algorithm Picks Videos Users Actually Engage With</h2>
+        <p>
+            We expected some gap between algorithm-recommended and randomly-inserted videos — but the
+            magnitude was striking. Across every measured behavior, users engage 2–3× more with
+            algorithm-selected content.
+        </p>
+
+        <div class="figure-card">
+            <img src="../final_assets/figA_engagement_comparison.png" alt="Engagement comparison: algorithm vs random">
+            <figcaption>
+                <strong>Figure 2.</strong> Long View Rate: 26.1% vs 8.4%. Click Rate: 37.7% vs 17.4%.
+                The algorithm consistently selects videos that users are far more likely to watch and interact with.
+            </figcaption>
+        </div>
+
+        <p>
+            But even algorithm-recommended videos are mostly skipped quickly. The cumulative distribution
+            of play ratio reveals a universal pattern: <strong>the first few seconds decide everything</strong>.
+        </p>
+
+        <div class="figure-card">
+            <img src="../final_assets/figB_play_ratio_cdf.png" alt="Play ratio CDF: algorithm vs random">
+            <figcaption>
+                <strong>Figure 3.</strong> 60% of random video interactions have a play ratio under 5% — users barely glance.
+                Even for algorithm videos, the median completion is only ~11%. Short video content lives or dies in its opening seconds<sup><a href="#ref-2">[2]</a></sup>.
+            </figcaption>
+        </div>
+
+        <div class="insight">
+            <strong>Key insight:</strong> The algorithm is effective at selecting content that holds attention longer.
+            But "longer" is relative — most videos, regardless of source, are abandoned within seconds.
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SECTION 4: FILTER BUBBLE? ==================== -->
+<section id="diversity">
+    <div class="container">
+        <h2>Does the Feed Narrow Over Time? The Data Says No.</h2>
+        <p>
+            A common concern about recommendation algorithms is the "filter bubble" — the idea that
+            algorithms progressively narrow the content users see, trapping them in
+            an echo chamber<sup><a href="#ref-3">[3]</a></sup>.
+            We tested this by measuring content category diversity within individual browsing sessions.
+        </p>
+
+        <div class="figure-card">
+            <img src="../final_assets/figC_session_diversity_halves.png" alt="Content diversity: first half vs second half">
+            <figcaption>
+                <strong>Figure 4.</strong> Average unique categories in the first vs second half of each session (algorithm events only).
+                Across all activity levels, the second half shows equal or <em>slightly more</em> diversity — not less.
+            </figcaption>
+        </div>
+
+        <p>
+            Zooming into the sequence-level view reinforces this. The share of the single most popular
+            category actually <strong>decreases</strong> as the session progresses.
+        </p>
+
+        <div class="figure-card">
+            <img src="../final_assets/figD_top1_by_position.png" alt="Top-1 category share by sequence position">
+            <figcaption>
+                <strong>Figure 5.</strong> Top-1 category share drops sharply from ~20% at position 1 to ~12–15% by position 10,
+                then stabilizes. The algorithm <em>diversifies</em> content within a session, not the opposite.
+            </figcaption>
+        </div>
+
+        <div class="insight">
+            <strong>Key insight:</strong> Within a single session, we found no evidence of a "filter bubble."
+            Content variety holds steady or increases slightly. However, this does not rule out
+            narrowing effects over longer time scales — weeks, months, or across sessions<sup><a href="#ref-3">[3]</a></sup>.
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SECTION 5: USER-LEVEL ==================== -->
+<section id="users">
+    <div class="container">
+        <h2>1,000 Users, 1,000 Different Content Worlds</h2>
+        <p>
+            Aggregate patterns only tell part of the story.
+            At the individual level, each user's content diversity and viewing behavior varies widely.
+            The following two views — one static, one interactive — show this user-level variation.
+        </p>
+
+        <div class="tab-group">
+            <div class="tab-header">
+                <button class="tab-btn active" onclick="switchTab(event, 'tab-static')">Content Diversity</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-interactive')">Watch Completion</button>
+            </div>
+
+            <div id="tab-static" class="tab-panel active">
+                <div class="figure-card" style="border-radius: 0 0 12px 12px;">
+                    <img src="../final_assets/figE_user_diversity_scatter.png" alt="Per-user content diversity scatter">
+                    <figcaption>
+                        <strong>Figure 6a.</strong> Each dot = one user. X-axis: unique categories via random videos;
+                        Y-axis: via algorithm videos. Most dots sit far above the diagonal because users receive
+                        far more algorithm events. High-activity users (red) see more diverse content from the algorithm.
+                    </figcaption>
+                </div>
+            </div>
+
+            <div id="tab-interactive" class="tab-panel">
+                <div class="figure-card" style="border-radius: 0 0 12px 12px;">
+                    <iframe src="../final_assets/interactive1_user_engagement.html" height="570" scrolling="no"></iframe>
+                    <figcaption>
+                        <strong>Figure 6b.</strong> Each dot = one user. Most sit above the diagonal — the same user watches
+                        algorithm-recommended videos more completely than random ones.
+                        Hover to see individual Play Ratio and Long View Rate values.
+                    </figcaption>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SECTION 6: TEMPORAL ==================== -->
+<section id="temporal">
+    <div class="container">
+        <h2>The Rhythm of a Day, in Swipes</h2>
+        <p>
+            User engagement is not uniform throughout the day.
+            The heatmap below shows how key feedback signals fluctuate across 24 hours.
+            Look for patterns: do users watch more attentively late at night? Does click behavior
+            peak at certain hours?
+        </p>
+
+        <div class="figure-card">
+            <iframe src="../final_assets/interactive2_hourly_heatmap.html" height="400" scrolling="no"></iframe>
+            <figcaption>
+                <strong>Figure 7.</strong> Hourly feedback patterns across all events. Darker cells = higher rate.
+                Hover for exact percentage values at each hour.
+            </figcaption>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SECTION 7: CONCLUSION ==================== -->
+<section id="conclusion">
+    <div class="container">
+        <h2>What We See, and What We Can't</h2>
+
+        <p><strong>What the data shows:</strong></p>
+        <p>
+            The algorithm is remarkably good at selecting videos that users engage with — 2–3× higher
+            engagement across all metrics. But even with this advantage, the median play ratio for algorithm-recommended
+            videos is only ~11%. Most short videos are abandoned within seconds, regardless of how they were selected.
+        </p>
+        <p>
+            Within individual browsing sessions, we found no evidence of content narrowing.
+            Category diversity is maintained or slightly increases as sessions progress —
+            a finding that challenges the simple "filter bubble" narrative, at least at the within-session time scale.
+        </p>
+
+        <p><strong>What we cannot conclude:</strong></p>
+        <ul style="margin: 0 0 16px 20px; line-height: 1.9;">
+            <li>Single-platform data (Kuaishou) — findings may not generalize to TikTok, YouTube Shorts, or other platforms</li>
+            <li>Behavioral proxy, not psychological causation — "watching longer" ≠ "enjoying more"<sup><a href="#ref-4">[4]</a></sup></li>
+            <li>Two-week observation window — no insight into long-term behavioral shifts</li>
+            <li>Random events are sparse (~0.4%), limiting statistical power for fine-grained comparisons</li>
+            <li>No within-session narrowing does not rule out cross-session or long-term filter effects<sup><a href="#ref-3">[3]</a></sup></li>
+        </ul>
+
+        <p>
+            For full methodology, code, and detailed analysis, see the
+            <a href="./02_kuaishou_explainer_notebook_5.ipynb">Explainer Notebook</a>.
+        </p>
+    </div>
+</section>
+
+<!-- ==================== REFERENCES ==================== -->
+<section id="references">
+    <div class="container">
+        <h2>References</h2>
+        <ol class="ref-list">
+            <li id="ref-1">[1] Gao, C., Li, S., Lei, W., et al. "KuaiRand: An Unbiased Sequential Recommendation Dataset with Randomly Exposed Videos." <em>Proceedings of the 31st ACM International Conference on Information & Knowledge Management (CIKM)</em>, 2022. <a href="https://kuairand.com/" target="_blank">kuairand.com</a></li>
+            <li id="ref-2">[2] Zhao, Z., et al. "Recommending What Video to Watch Next: A Multitask Ranking System." <em>Proceedings of the 13th ACM Conference on Recommender Systems (RecSys)</em>, 2019.</li>
+            <li id="ref-3">[3] Pariser, E. <em>The Filter Bubble: What the Internet Is Hiding from You.</em> Penguin Press, 2011.</li>
+            <li id="ref-4">[4] Ribeiro, M.H., Ottoni, R., West, R., Almeida, V.A.F., and Meira, W. "Auditing Radicalization Pathways on YouTube." <em>Proceedings of the 2020 Conference on Fairness, Accountability, and Transparency (FAT*)</em>, 2020.</li>
+            <li id="ref-5">[5] Segel, E. and Heer, J. "Narrative Visualization: Telling Stories with Data." <em>IEEE Transactions on Visualization and Computer Graphics</em>, 16(6), 2010. <a href="https://idl.cs.washington.edu/files/2010-Narrative-InfoVis.pdf" target="_blank">PDF</a></li>
+            <li id="ref-6">[6] Gao, C., Li, S., et al. "KuaiRec: A Fully-observed Dataset and Insights for Evaluating Recommender Systems." <em>CIKM</em>, 2022.</li>
+        </ol>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        DTU Social Data Analysis & Visualization — Assignment B, 2026
+    </div>
+</footer>
+
+<script>
+function switchTab(e, panelId) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    e.currentTarget.classList.add('active');
+    document.getElementById(panelId).classList.add('active');
+}
+</script>
+
+</body>
+</html>
